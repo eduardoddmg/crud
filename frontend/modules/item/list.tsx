@@ -18,10 +18,10 @@ export const ItemList = () => {
     },
     {
       header: 'Editar',
-      accessor: 'id',
+      accessor: 'id_item',
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       row: (row: any) => (
-        <Link href={`/item/editar/${row.id}`}>
+        <Link href={`/item/editar/${row.id_item}`}>
           <Button>
             <Edit />
           </Button>
@@ -30,12 +30,12 @@ export const ItemList = () => {
     },
     {
       header: 'APAGAR',
-      accessor: 'id',
+      accessor: 'id_item',
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       row: (row: any, fetchData: any) => (
         <Button
           onClick={async () => {
-            await removeItem(row.id);
+            await removeItem(row.id_item);
             fetchData();
           }}
         >
@@ -45,5 +45,5 @@ export const ItemList = () => {
     },
   ];
 
-  return <Grid columns={columns} route="/items" />;
+  return <Grid columns={columns} route="/item" />;
 };

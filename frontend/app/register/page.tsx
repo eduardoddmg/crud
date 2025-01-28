@@ -30,10 +30,11 @@ import { toast } from '@/hooks/use-toast';
 
 const FormSchema = z.object({
   username: z.string().min(4, {
-    message: 'Por favor, digite um e-mail válido.',
+    message: 'Por favor, digite um nome de usuário válido.',
   }),
+  email: z.string().email({ message: 'Por favor, digite um e-mail válido.' }),
   password: z.string().min(8, {
-    message: 'A senha deve ter 8 caracteres.',
+    message: 'A senha deve ter no mínimo 8 caracteres.',
   }),
 });
 
@@ -42,14 +43,15 @@ export default function Register() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: '',
+      email: '',
       password: '',
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const { username, password } = data;
+    const { username, email, password } = data;
     api
-      .post('/auth/register', { username, password })
+      .post('/auth/register', { username, email, password })
       .then((response) => {
         const message = response.data.message;
         toast({
@@ -59,7 +61,7 @@ export default function Register() {
         });
       })
       .catch((error) => {
-        const message = error.response.data.message;
+        const message = error.response?.data?.message || 'Erro inesperado.';
         toast({
           title: 'Aconteceu algo de errado',
           description: message,
@@ -73,7 +75,7 @@ export default function Register() {
       <CardHeader>
         <CardTitle>Registro</CardTitle>
         <CardDescription>
-          Adicione as suas credenciais e se cadastre no sistema.
+          Adicione suas credenciais e registre-se no sistema.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -87,6 +89,19 @@ export default function Register() {
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>E-mail</FormLabel>
+                  <FormControl>
+                    <Input type="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

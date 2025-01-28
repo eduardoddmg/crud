@@ -20,13 +20,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   // Login
-  const login = async (username: string, password: string) => {
+  const login = async (email: string, password: string) => {
     setLoading(true);
     api
-      .post('/auth/login', { username, password })
+      .post('/auth/login', { email, password })
       .then((response) => {
         const message = response.data.message;
-        setToken(response.data.token);
+        setToken(response.data.data.token);
         toast({
           title: 'Sucesso!',
           description: message,

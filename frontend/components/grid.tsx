@@ -33,6 +33,7 @@ export const Grid = ({ route, columns }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)} // Atualiza o estado do input
           loading={debounceLoading}
+          disabled={data === null || data?.length === 0}
         />
       </div>
       <DataTable columns={enhancedColumns} data={data} loading={loading} />;

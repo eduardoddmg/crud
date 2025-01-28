@@ -28,11 +28,9 @@ import Link from 'next/link';
 import { useAuth } from '@/context/auth-context';
 
 const FormSchema = z.object({
-  username: z.string().min(4, {
-    message: 'Por favor, digite um e-mail válido.',
-  }),
+  email: z.string().email({ message: 'Por favor, digite um e-mail válido.' }),
   password: z.string().min(8, {
-    message: 'A senha deve ter 8 caracteres.',
+    message: 'A senha deve ter no mínimo 8 caracteres.',
   }),
 });
 
@@ -41,14 +39,14 @@ export default function Login() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: '',
-      password: '',
+      email: 'eduardomelo@gmail.com',
+      password: '12345678',
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const { username, password } = data;
-    await login(username, password);
+    const { email, password } = data;
+    await login(email, password); // Alterado para enviar o e-mail no lugar do username
   }
 
   return (
@@ -56,7 +54,7 @@ export default function Login() {
       <CardHeader>
         <CardTitle>Login</CardTitle>
         <CardDescription>
-          Adicione as suas credenciais e realize o login no sistema.
+          Adicione suas credenciais e realize o login no sistema.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -64,12 +62,12 @@ export default function Login() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
-              name="username"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>E-mail</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input type="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -6,7 +6,7 @@ import { Item } from './type';
 import { useFetch } from '@/hooks/use-fetch';
 
 export const useItemActions = () => {
-  const { fetchData: getAllItems, data, loading } = useFetch('/items');
+  const { fetchData: getAllItems, data, loading } = useFetch('/item');
   const { token } = useAuth();
   const router = useRouter();
 
@@ -17,7 +17,7 @@ export const useItemActions = () => {
   const createItem = (name: string, description: string) => {
     return api
       .post(
-        '/items',
+        '/item',
         { name, description },
         { headers: { authorization: `Bearer: ${token}` } }
       )
@@ -42,7 +42,7 @@ export const useItemActions = () => {
 
   const createBatchItem = (data: Item[]) => {
     return api
-      .post('/items/batch', data, {
+      .post('/item/batch', data, {
         headers: { authorization: `Bearer: ${token}` },
       })
       .then(() => {
@@ -65,7 +65,7 @@ export const useItemActions = () => {
   };
 
   const getItemById = async (id: string) => {
-    const response = await api.get(`/items/${id}`, {
+    const response = await api.get(`/item/${id}`, {
       headers: {
         authorization: `Bearer: ${token}`,
       },
@@ -78,7 +78,7 @@ export const useItemActions = () => {
     data: { name: string; description: string }
   ) => {
     return api
-      .put(`/items/${id}`, data, {
+      .put(`/item/${id}`, data, {
         headers: { authorization: `Bearer: ${token}` },
       })
       .then(() => {
@@ -102,7 +102,7 @@ export const useItemActions = () => {
 
   const removeItem = async (id: string) => {
     return api
-      .delete(`/items/${id}`, {
+      .delete(`/item/${id}`, {
         headers: { authorization: `Bearer: ${token}` },
       })
       .then(() => {
