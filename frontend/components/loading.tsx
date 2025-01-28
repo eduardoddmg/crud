@@ -1,5 +1,5 @@
 export const Loading = ({
-  className,
+  className = '',
   size = 8,
 }: {
   className: string;
