@@ -1,7 +1,6 @@
 'use client';
 
 import { Loading } from '@/components/loading';
-import { Navbar } from '@/components/navbar';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/auth-context';
 import { ItemList } from '@/modules/item/list';
@@ -21,7 +20,6 @@ const Page = () => {
 
   return (
     <div className="py-5 space-y-5">
-      <Navbar />
       <div className="px-10 space-y-5">
         <div className="space-x-5">
           <Link href="/item/adicionar">
