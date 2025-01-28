@@ -6,10 +6,7 @@ import { Input } from './ui/input';
 
 export const Grid = ({ route, columns }) => {
   const [search, setSearch] = useState('');
-  const { debouncedValue, loading: debounceLoading } = useDebounce(
-    search,
-    2000
-  ); // Obtém o loading do debounce
+  const { debouncedValue, loading: debounceLoading } = useDebounce(search, 500); // Obtém o loading do debounce
 
   // Log do valor debounced
   useEffect(() => {
