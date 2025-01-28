@@ -42,12 +42,9 @@ interface FormLoteProps {
 
 export const ItemFormLote: React.FC<FormLoteProps> = ({ onSubmit }) => {
   const [rows, setRows] = useState([
-    { name: 'sasasa', description: 'sasasa' },
-    { name: 'sasasa', description: 'sasasa' },
-    { name: 'sasasa', description: 'sasasa' },
-    { name: 'sasasa', description: 'sasasa' },
-    { name: 'sasasa', description: 'sasasa' },
-    { name: 'sasasa', description: 'sasasa' },
+    { name: '', description: '' },
+    { name: '', description: '' },
+    { name: '', description: '' },
   ]);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
