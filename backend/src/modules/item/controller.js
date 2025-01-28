@@ -5,13 +5,26 @@ const ItemDAO = require('./dao');
 const create = async (req, res) => {
   req.body.id_usuario = req.user.id; // Adiciona o ID do usuário autenticado
 
-  console.log(req.user);
-  console.log(req.body);
   const data = await ItemDAO.create(req.body);
 
   return res.status(201).json({
     success: true,
     message: 'Item criado com sucesso!',
+    data,
+  });
+};
+
+// Função para criar registros em lote
+const createBatch = async (req, res) => {
+  const { items } = req.body;
+  items.forEach((element) => {
+    element.id_usuario = req.user.id; // Adiciona o ID do usuário autenticado
+  });
+  const data = await ItemDAO.createBatch(items);
+
+  return res.status(201).json({
+    success: true,
+    message: 'Itens criados com sucesso!',
     data,
   });
 };
@@ -23,7 +36,7 @@ const getAll = async (req, res) => {
 
   if (q) {
     // Adiciona o filtro de pesquisa
-    filters.push(`name ILIKE '%${q}%' or description ILIKE '%${q}%'`); // Substitua "nome" e pelo "description" pelo campo relevante
+    filters.push(`(name ILIKE '%${q}%' or description ILIKE '%${q}%')`); // Substitua "nome" e pelo "description" pelo campo relevante
   }
 
   const data = await ItemDAO.getAll(null, filters); // Passa os filtros para o DAO
@@ -74,4 +87,4 @@ const remove = async (req, res) => {
   });
 };
 
-module.exports = { create, getAll, getOne, update, remove };
+module.exports = { create, createBatch, getAll, getOne, update, remove };

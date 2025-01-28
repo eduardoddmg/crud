@@ -93,6 +93,97 @@ class DAO {
   }
 
   /**
+   * Insere múltiplos registros na tabela.
+   * @param {Array<Object>} dataArray - Array de objetos contendo os dados a serem inseridos.
+   * @returns {Promise<Array>} - Lista de registros inseridos.
+   * @throws {BadRequestError} - Se o array estiver vazio.
+   * @example
+   * const results = await dao.createBatch([
+   *   { nome: 'Dudu', idade: 25 },
+   *   { nome: 'Carlos', idade: 30 }
+   * ]);
+   * console.log(results); // [{ id: 1, nome: 'Dudu', idade: 25 }, { id: 2, nome: 'Carlos', idade: 30 }]
+   */
+  async createBatch(dataArray) {
+    if (!Array.isArray(dataArray) || dataArray.length === 0) {
+      throw new CustomAPIError.BadRequestError(
+        'O array de dados está vazio ou inválido!'
+      );
+    }
+
+    const transformedDataArray = dataArray.map(transformEmptyValuesToNull);
+
+    // Obtém as colunas a partir do primeiro objeto
+    const columns = Object.keys(transformedDataArray[0]);
+
+    // Mapeia os valores de cada objeto no array
+    const values = [];
+    const placeholders = transformedDataArray.map((row, rowIndex) => {
+      const rowPlaceholders = Object.values(row)
+        .map((_, colIndex) => `$${values.length + colIndex + 1}`)
+        .join(', ');
+
+      values.push(...Object.values(row));
+
+      return `(${rowPlaceholders})`;
+    });
+
+    // Monta a query final
+    const sql = `INSERT INTO ${this.schema}.${this.table} (${columns.join(
+      ', '
+    )}) 
+                   VALUES ${placeholders.join(', ')} 
+                   RETURNING *`;
+
+    return await executeQuery(sql, values);
+  }
+  /**
+   * Insere múltiplos registros na tabela.
+   * @param {Array<Object>} dataArray - Array de objetos contendo os dados a serem inseridos.
+   * @returns {Promise<Array>} - Lista de registros inseridos.
+   * @throws {BadRequestError} - Se o array estiver vazio.
+   * @example
+   * const results = await dao.createBatch([
+   *   { nome: 'Dudu', idade: 25 },
+   *   { nome: 'Carlos', idade: 30 }
+   * ]);
+   * console.log(results); // [{ id: 1, nome: 'Dudu', idade: 25 }, { id: 2, nome: 'Carlos', idade: 30 }]
+   */
+  async createBatch(dataArray) {
+    if (!Array.isArray(dataArray) || dataArray.length === 0) {
+      throw new CustomAPIError.BadRequestError(
+        'O array de dados está vazio ou inválido!'
+      );
+    }
+
+    const transformedDataArray = dataArray.map(transformEmptyValuesToNull);
+
+    // Obtém as colunas a partir do primeiro objeto
+    const columns = Object.keys(transformedDataArray[0]);
+
+    // Mapeia os valores de cada objeto no array
+    const values = [];
+    const placeholders = transformedDataArray.map((row, rowIndex) => {
+      const rowPlaceholders = Object.values(row)
+        .map((_, colIndex) => `$${values.length + colIndex + 1}`)
+        .join(', ');
+
+      values.push(...Object.values(row));
+
+      return `(${rowPlaceholders})`;
+    });
+
+    // Monta a query final
+    const sql = `INSERT INTO ${this.schema}.${this.table} (${columns.join(
+      ', '
+    )}) 
+                 VALUES ${placeholders.join(', ')} 
+                 RETURNING *`;
+
+    return await executeQuery(sql, values);
+  }
+
+  /**
    * Atualiza um registro existente pelo ID.
    * @param {number|string} id - ID do registro.
    * @param {Object} data - Dados atualizados.
