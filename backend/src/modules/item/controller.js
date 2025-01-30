@@ -32,14 +32,14 @@ const createBatch = async (req, res) => {
 // Função para buscar todos os registros com suporte a pesquisas (q)
 const getAll = async (req, res) => {
   const { q } = req.query; // Captura o parâmetro de pesquisa
-  const filters = [`id_usuario = ${req.user.id}`]; // Filtra apenas os registros do usuário autenticado
+  const filters = { id_usuario: req.user.id }; // Filtra apenas os registros do usuário autenticado
 
   if (q) {
-    // Adiciona o filtro de pesquisa
-    filters.push(`(name ILIKE '%${q}%' or description ILIKE '%${q}%')`); // Substitua "nome" e pelo "description" pelo campo relevante
+    filters.name = new RegExp(q, 'i'); // Simula ILIKE para JSON
+    filters.description = new RegExp(q, 'i');
   }
 
-  const data = await ItemDAO.getAll(null, filters); // Passa os filtros para o DAO
+  const data = await ItemDAO.getAll(filters); // Passa os filtros para o DAO
   return res.status(200).json(data);
 };
 

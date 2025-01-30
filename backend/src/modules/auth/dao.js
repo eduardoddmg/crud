@@ -2,7 +2,7 @@ const DAO = require('../../utils/dao');
 
 class UserDAO extends DAO {
   constructor() {
-    super('id_item', 'users');
+    super('id_user', 'users');
   }
 
   async getByEmail(email) {
