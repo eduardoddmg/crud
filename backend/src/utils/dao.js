@@ -38,7 +38,14 @@ class DAO {
 
     // Aplica os filtros dinamicamente
     for (const key in filters) {
-      records = records.filter((record) => record[key] === filters[key]);
+      if (filters[key] instanceof RegExp) {
+        // Filtro para campos que exigem pesquisa insensível a maiúsculas e minúsculas
+        records = records.filter((record) =>
+          filters[key].test(record[key] || '')
+        );
+      } else {
+        records = records.filter((record) => record[key] === filters[key]);
+      }
     }
 
     return records;
