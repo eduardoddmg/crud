@@ -8,7 +8,6 @@ const {
 
 require('express-async-errors');
 require('dotenv').config();
-require('./config/db');
 
 const app = express();
 const port = 8080;

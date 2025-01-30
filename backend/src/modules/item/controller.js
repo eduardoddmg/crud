@@ -48,11 +48,11 @@ const getOne = async (req, res) => {
   const { id } = req.params;
   const data = await ItemDAO.getById(id);
 
-  if (!data.length) {
+  if (!data) {
     throw new NotFoundError('Item não encontrado!');
   }
 
-  return res.status(200).json(data[0]);
+  return res.status(200).json(data);
 };
 
 // Função para atualizar um registro pelo ID
@@ -60,14 +60,14 @@ const update = async (req, res) => {
   const { id } = req.params;
   const data = await ItemDAO.update(id, req.body);
 
-  if (!data.length) {
+  if (!data) {
     throw new NotFoundError('Item não encontrado!');
   }
 
   return res.status(200).json({
     success: true,
     message: 'Item atualizado com sucesso!',
-    data: data[0],
+    data: data,
   });
 };
 
@@ -76,14 +76,14 @@ const remove = async (req, res) => {
   const { id } = req.params;
   const data = await ItemDAO.remove(id);
 
-  if (!data.length) {
+  if (!data) {
     throw new NotFoundError('Item não encontrado!');
   }
 
   return res.status(200).json({
     success: true,
     message: 'Item removido com sucesso!',
-    data: data[0],
+    data: data,
   });
 };
 

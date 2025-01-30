@@ -2,11 +2,11 @@ const DAO = require('../../utils/dao');
 
 class UserDAO extends DAO {
   constructor() {
-    super('id_item', 'public', 'tb_usuario');
+    super('id_item', 'users');
   }
 
   async getByEmail(email) {
-    const response = await this.getAll(null, [`email = '${email}'`]);
+    const response = await this.getAll({ email });
     return response[0];
   }
 }
