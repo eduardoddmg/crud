@@ -20,7 +20,7 @@ const Page = () => {
 
   return (
     <div className="py-5 space-y-5">
-      <div className="px-10 space-y-5">
+      <div className="space-y-5">
         <div className="space-x-5">
           <Link href="/item/adicionar">
             <Button variant="default">Adicionar</Button>

@@ -11,7 +11,7 @@ const Page = () => {
     createBatchItem(data);
   };
   return (
-    <div className="p-10 space-y-5">
+    <div className="space-y-5">
       <h2 className="text-xl">Adicionar em lote</h2>
       <ItemFormLote onSubmit={onSubmit} />;
     </div>

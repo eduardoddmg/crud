@@ -34,7 +34,7 @@ export default function RootLayout({
         <Toaster />
         <AuthProvider>
           <Navbar />
-          {children}
+          <section className="px-10">{children}</section>
         </AuthProvider>
       </body>
     </html>
