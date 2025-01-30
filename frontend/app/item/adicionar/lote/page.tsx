@@ -13,7 +13,7 @@ const Page = () => {
   return (
     <div className="space-y-5">
       <h2 className="text-xl">Adicionar em lote</h2>
-      <ItemFormLote onSubmit={onSubmit} />;
+      <ItemFormLote onSubmit={onSubmit} />
     </div>
   );
 };

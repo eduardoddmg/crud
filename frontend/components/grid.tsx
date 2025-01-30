@@ -33,7 +33,7 @@ export const Grid = ({ route, columns }) => {
           disabled={data === null || data?.length === 0}
         />
       </div>
-      <DataTable columns={enhancedColumns} data={data} loading={loading} />;
+      <DataTable columns={enhancedColumns} data={data} loading={loading} />
     </div>
   );
 };

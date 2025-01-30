@@ -13,7 +13,7 @@ const Page = () => {
   return (
     <div className="space-y-5">
       <h2 className="text-xl">Adicionar</h2>
-      <ItemForm onSubmit={onSubmit} />;
+      <ItemForm onSubmit={onSubmit} />
     </div>
   );
 };
