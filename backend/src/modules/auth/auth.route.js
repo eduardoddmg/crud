@@ -1,7 +1,7 @@
 // baseRouter.js
 const express = require('express');
 const router = express.Router();
-const { register, login, getProfile } = require('./controller');
+const { register, login, getProfile } = require('./auth.controller');
 const jwtMiddleware = require('../../middlewares/jwt');
 
 router.post('/register', register);

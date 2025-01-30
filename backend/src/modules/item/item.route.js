@@ -7,7 +7,7 @@ const {
   update,
   remove,
   createBatch,
-} = require('./controller');
+} = require('./item.controller');
 const jwtMiddleware = require('../../middlewares/jwt');
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-const UserDAO = require('./dao'); // Supondo que exista um DAO para manipular os dados de usuários
+const UserDAO = require('./auth.dao'); // Supondo que exista um DAO para manipular os dados de usuários
 const { BadRequestError, UnauthorizedError } = require('../../errors'); // Erros personalizados
 const {
   hashPassword,

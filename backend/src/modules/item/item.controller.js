@@ -1,5 +1,5 @@
 const { NotFoundError } = require('../../errors');
-const ItemDAO = require('./dao');
+const ItemDAO = require('./item.dao.');
 
 // Função para criar um novo registro
 const create = async (req, res) => {
