@@ -3,6 +3,7 @@ import { useFetch } from '@/hooks/use-fetch';
 import { useEffect, useState } from 'react';
 import { useDebounce } from '@/hooks/use-debounce';
 import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 export const Grid = ({ route, columns }) => {
   const [search, setSearch] = useState('');
@@ -24,7 +25,7 @@ export const Grid = ({ route, columns }) => {
 
   return (
     <div className="space-y-5">
-      <div>
+      <div className="flex items-center space-x-3">
         <Input
           placeholder="Faça uma busca"
           value={search}
@@ -32,6 +33,7 @@ export const Grid = ({ route, columns }) => {
           loading={debounceLoading}
           disabled={data === null || data?.length === 0}
         />
+        <Button onClick={() => setSearch('')}>Limpar</Button>
       </div>
       <DataTable columns={enhancedColumns} data={data} loading={loading} />
     </div>
