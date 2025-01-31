@@ -101,13 +101,23 @@ router.delete('/:id', remove);
 module.exports = router;
 `;
 
+    const indexPath = path.join(__dirname, 'src', 'modules', 'index.js');
+    let indexContent = fs.existsSync(indexPath) ? fs.readFileSync(indexPath, 'utf8') : '';
+
+    if (!indexContent.includes(`const route${moduleName.charAt(0).toUpperCase() + moduleName.slice(1)} = require('./${moduleName}/${moduleName}.route');`)) {
+        const importStatement = `const route${moduleName.charAt(0).toUpperCase() + moduleName.slice(1)} = require('./${moduleName}/${moduleName}.route');\n`;
+        indexContent = indexContent.replace(/(const router = express\.Router\(\);\n)/, `$1${importStatement}`);
+        indexContent = indexContent.replace(/(module\.exports = router;)/, `router.use('/${moduleName}', route${moduleName.charAt(0).toUpperCase() + moduleName.slice(1)});\n\n$1`);
+    }
+
     // Criar arquivos
     fs.writeFileSync(path.join(modulePath, `${moduleName}.controller.js`), controllerContent);
     fs.writeFileSync(path.join(modulePath, `${moduleName}.dao.js`), daoContent);
     fs.writeFileSync(path.join(modulePath, `${moduleName}.message.js`), messageContent);
     fs.writeFileSync(path.join(modulePath, `${moduleName}.route.js`), routeContent);
+    fs.writeFileSync(indexPath, indexContent);
     
-    console.log(`Módulo '${moduleName}' criado com sucesso!`);
+    console.log(`Módulo '${moduleName}' criado com sucesso e registrado no roteador principal!`);
 }
 
 // Exemplo de uso: node script.js nome_do_modulo

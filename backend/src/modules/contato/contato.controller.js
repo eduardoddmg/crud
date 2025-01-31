@@ -11,14 +11,14 @@ const create = async (req, res) => {
 
 const createBatch = async (req, res) => {
   const { items } = req.body;
-  items.forEach(item => item.id_usuario = req.user.id);
+  items.forEach(item => item.user = req.user);
   const data = await contatoDAO.createBatch(items);
   return res.status(201).json({ success: true, message: messages.CREATED_BATCH, data });
 };
 
 const getAll = async (req, res) => {
   const { q } = req.query;
-  const filters = { id_user: req.user.id };
+  const filters = { id_usuario: req.user.id };
   if (q) {
     filters.name = new RegExp(q, "i");
     filters.description = new RegExp(q, "i");

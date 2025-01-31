@@ -4,7 +4,7 @@ const messages = require("./item.message");
 
 // Função para criar um novo registro
 const create = async (req, res) => {
-  req.body.id_usuario = req.user.id; // Adiciona o ID do usuário autenticado
+  req.body = req.user; // Adiciona o ID do usuário autenticado
 
   const data = await ItemDAO.create(req.body);
 
@@ -19,7 +19,7 @@ const create = async (req, res) => {
 const createBatch = async (req, res) => {
   const { items } = req.body;
   items.forEach((element) => {
-    element.id_usuario = req.user.id; // Adiciona o ID do usuário autenticado
+    element.user = req.user; // Adiciona o ID do usuário autenticado
   });
   const data = await ItemDAO.createBatch(items);
 
