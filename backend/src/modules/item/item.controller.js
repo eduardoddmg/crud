@@ -1,5 +1,6 @@
-const { NotFoundError } = require('../../errors');
-const ItemDAO = require('./item.dao.');
+const { NotFoundError } = require("../../errors");
+const ItemDAO = require("./item.dao.");
+const messages = require("./item.message");
 
 // Função para criar um novo registro
 const create = async (req, res) => {
@@ -9,7 +10,7 @@ const create = async (req, res) => {
 
   return res.status(201).json({
     success: true,
-    message: 'Item criado com sucesso!',
+    message: messages.CREATED,
     data,
   });
 };
@@ -24,7 +25,7 @@ const createBatch = async (req, res) => {
 
   return res.status(201).json({
     success: true,
-    message: 'Itens criados com sucesso!',
+    message: messages.CREATED_BATCH,
     data,
   });
 };
@@ -35,8 +36,8 @@ const getAll = async (req, res) => {
   const filters = { id_usuario: req.user.id }; // Filtra apenas os registros do usuário autenticado
 
   if (q) {
-    filters.name = new RegExp(q, 'i'); // Simula ILIKE para JSON
-    filters.description = new RegExp(q, 'i');
+    filters.name = new RegExp(q, "i"); // Simula ILIKE para JSON
+    filters.description = new RegExp(q, "i");
   }
 
   const data = await ItemDAO.getAll(filters); // Passa os filtros para o DAO
@@ -49,7 +50,7 @@ const getOne = async (req, res) => {
   const data = await ItemDAO.getById(id);
 
   if (!data) {
-    throw new NotFoundError('Item não encontrado!');
+    throw new NotFoundError(messages.NOT_FOUND);
   }
 
   return res.status(200).json(data);
@@ -61,12 +62,12 @@ const update = async (req, res) => {
   const data = await ItemDAO.update(id, req.body);
 
   if (!data) {
-    throw new NotFoundError('Item não encontrado!');
+    throw new NotFoundError(messages.NOT_FOUND);
   }
 
   return res.status(200).json({
     success: true,
-    message: 'Item atualizado com sucesso!',
+    message: messages.UPDATED,
     data: data,
   });
 };
@@ -77,12 +78,12 @@ const remove = async (req, res) => {
   const data = await ItemDAO.remove(id);
 
   if (!data) {
-    throw new NotFoundError('Item não encontrado!');
+    throw new NotFoundError(messages.NOT_FOUND);
   }
 
   return res.status(200).json({
     success: true,
-    message: 'Item removido com sucesso!',
+    message: messages.REMOVED,
     data: data,
   });
 };
