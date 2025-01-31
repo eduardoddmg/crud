@@ -7,7 +7,8 @@ import { LogIn, LogOut } from 'lucide-react';
 
 export const Navbar = () => {
   const { token, logout, user } = useAuth();
-  return (
+  
+  if (token) return (
     <div className="w-full flex justify-between px-10 py-5">
       <p>Olá, {user?.username}</p>
       {token ? (

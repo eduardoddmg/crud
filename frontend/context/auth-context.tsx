@@ -92,7 +92,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider value={{ token, loading, login, logout, user }}>
-      {loading ? <Loading /> : children}
+      {loading ? 
+      <div className='flex justify-center'>
+
+      <Loading />
+      </div>
+       : children}
     </AuthContext.Provider>
   );
 };
