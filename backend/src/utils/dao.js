@@ -1,22 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const _ = require('lodash');
 
 class DAO {
   constructor(primaryKey, table) {
-    if (!primaryKey || !table) {
-      throw new Error('primaryKey e table são obrigatórios para a classe DAO.');
-    }
+    if (!primaryKey || !table)
+      throw new Error('primaryKey e table são obrigatórios.');
+
     this.primaryKey = primaryKey;
     this.table = table;
     this.dbPath = path.join(__dirname, 'db', `${this.table}.json`);
 
-    if (!fs.existsSync(path.join(__dirname, 'db'))) {
-      fs.mkdirSync(path.join(__dirname, 'db'));
-    }
-    if (!fs.existsSync(this.dbPath)) {
+    if (!fs.existsSync(path.dirname(this.dbPath)))
+      fs.mkdirSync(path.dirname(this.dbPath));
+    if (!fs.existsSync(this.dbPath))
       fs.writeFileSync(this.dbPath, JSON.stringify([]));
-    }
   }
 
   _readDB() {
@@ -28,31 +27,11 @@ class DAO {
   }
 
   async getById(id) {
-    const records = this._readDB();
-    console.log(records, id);
-    return records.find((record) => record[this.primaryKey] === id) || null;
+    return _.find(this._readDB(), { [this.primaryKey]: id }) || null;
   }
 
   async getAll(filters = {}) {
-    let records = this._readDB();
-
-    // Aplica os filtros dinamicamente
-    for (const key in filters) {
-      if (filters[key] instanceof RegExp) {
-        // Filtro para campos que exigem pesquisa insensível a maiúsculas e minúsculas
-        records = records.filter((record) =>
-          filters[key].test(record[key] || '')
-        );
-      } else {
-        records = records.filter((record) => record[key] === filters[key]);
-      }
-    }
-
-    return records;
-  }
-
-  async getByField(field, value) {
-    return this._readDB().filter((record) => record[field] === value);
+    return _.filter(this._readDB(), filters);
   }
 
   async create(data) {
@@ -64,9 +43,9 @@ class DAO {
   }
 
   async createBatch(dataArray) {
-    if (!Array.isArray(dataArray) || dataArray.length === 0) {
-      throw new Error('O array de dados está vazio ou inválido!');
-    }
+    if (!Array.isArray(dataArray) || _.isEmpty(dataArray))
+      throw new Error('Array inválido!');
+
     const records = this._readDB();
     const newRecords = dataArray.map((data) => ({
       ...data,
@@ -78,9 +57,10 @@ class DAO {
   }
 
   async update(id, data) {
-    const records = this._readDB();
-    const index = records.findIndex((record) => record[this.primaryKey] === id);
+    let records = this._readDB();
+    const index = _.findIndex(records, { [this.primaryKey]: id });
     if (index === -1) return null;
+
     records[index] = { ...records[index], ...data };
     this._writeDB(records);
     return records[index];
@@ -88,10 +68,9 @@ class DAO {
 
   async remove(id) {
     const records = this._readDB();
-    const filteredRecords = records.filter(
-      (record) => record[this.primaryKey] !== id
-    );
+    const filteredRecords = _.reject(records, { [this.primaryKey]: id });
     if (filteredRecords.length === records.length) return null;
+
     this._writeDB(filteredRecords);
     return true;
   }
@@ -102,11 +81,11 @@ class DAO {
   }
 
   async itemExistsById(id) {
-    return !!(await this.getById(id));
+    return !!_.find(this._readDB(), { [this.primaryKey]: id });
   }
 
   async itemExistsByField(field, value) {
-    return (await this.getByField(field, value)).length > 0;
+    return !_.isEmpty(_.filter(this._readDB(), { [field]: value }));
   }
 }
 
