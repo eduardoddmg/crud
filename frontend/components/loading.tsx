@@ -1,12 +1,6 @@
-export const Loading = ({
-  className = '',
-  size = 8,
-}: {
-  className: string;
-  size: number;
-}) => {
+export const Loading = ({ size = 8 }: { size?: number }) => {
   return (
-    <div role="status" className={className}>
+    <div role="status">
       <svg
         aria-hidden="true"
         className={`w-${size} h-${size} text-gray-200 animate-spin dark:text-gray-600 fill-blue-600`}

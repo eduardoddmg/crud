@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { LogIn, LogOut } from 'lucide-react';
 
 export const Navbar = () => {
-  const { token, logout } = useAuth();
+  const { token, logout, user } = useAuth();
   return (
     <div className="w-full flex justify-between px-10 py-5">
-      <p>CRUD</p>
+      <p>Olá, {user?.username}</p>
       {token ? (
         <Button onClick={() => logout()}>
           <LogOut />

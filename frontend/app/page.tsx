@@ -1,6 +1,5 @@
 'use client';
 
-import { Loading } from '@/components/loading';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/auth-context';
 import { ItemList } from '@/modules/item/list';
@@ -15,8 +14,6 @@ const Page = () => {
   useEffect(() => {
     if (!token && !loading) router.push('/login');
   }, [token, loading]);
-
-  if (loading) return <Loading />;
 
   return (
     <div className="py-5 space-y-5">

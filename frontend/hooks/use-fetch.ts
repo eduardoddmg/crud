@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useCallback } from 'react';
 import { api } from '@/utils/request';
 import { useAuth } from '@/context/auth-context';
@@ -6,7 +7,7 @@ export const useFetch = (route: string) => {
   const { token } = useAuth();
 
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any[] | null>(null);
 
   const fetchData = useCallback(
     async (q = '') => {

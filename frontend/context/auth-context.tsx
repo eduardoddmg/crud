@@ -4,18 +4,27 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { api } from '@/utils/request';
 import { toast } from '@/hooks/use-toast';
+import { Loading } from '@/components/loading';
 
 interface AuthContextData {
   token: string | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  user: UserType | null;
 }
 
 const AuthContext = createContext<AuthContextData | undefined>(undefined);
 
+interface UserType {
+  id: string;
+  username: string;
+  email: string;
+}
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -58,7 +67,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     api
       .get('/auth', { headers: { authorization: `Bearer: ${token}` } })
       .then((response) => {
-        console.log(response.data);
+        setUser(response.data);
       })
       .catch(() => logout());
   };
@@ -82,8 +91,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ token, loading, login, logout }}>
-      {children}
+    <AuthContext.Provider value={{ token, loading, login, logout, user }}>
+      {loading ? <Loading /> : children}
     </AuthContext.Provider>
   );
 };
