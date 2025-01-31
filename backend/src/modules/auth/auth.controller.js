@@ -84,13 +84,9 @@ const getProfile = async (req, res) => {
   }
 
   return res.status(200).json({
-    success: true,
-    message: 'Perfil do usuário obtido com sucesso!',
-    data: {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-    },
+    id: user.id,
+    username: user.username,
+    email: user.email,
   });
 };
 
