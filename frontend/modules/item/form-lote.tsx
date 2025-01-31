@@ -24,7 +24,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 
-// Validação do formulário com Zod
+// Definição do esquema de validação com pelo menos um item obrigatório
 const FormSchema = z.object({
   items: z
     .array(
@@ -33,7 +33,7 @@ const FormSchema = z.object({
         description: z.string().min(1, 'A descrição é obrigatória'),
       })
     )
-    .nonempty('Adicione pelo menos um item.'),
+    .min(1, 'Adicione pelo menos um item.'), // Garantir que tenha pelo menos um item
 });
 
 interface FormLoteProps {
