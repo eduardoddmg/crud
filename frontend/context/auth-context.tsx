@@ -53,11 +53,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     router.push('/login');
   };
 
+  // Get Profile
+  const getProfile = (token: string) => {
+    api
+      .get('/auth', { headers: { authorization: `Bearer: ${token}` } })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(() => logout());
+  };
+
   // Verificar usuário ao carregar a página
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(JSON.parse(storedToken));
+      getProfile(JSON.parse(storedToken));
     }
     setLoading(false);
   }, []);
