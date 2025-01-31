@@ -18,18 +18,18 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 
 const FormSchema = z.object({
-  name: z.string(),
-  description: z.string(),
+  name: z.string().min(1, 'O nome é obrigatório'),
+  description: z.string().min(1, 'A descrição é obrigatória'),
 });
 
 interface ItemFormProps {
   onSubmit: (data: z.infer<typeof FormSchema>) => void;
-  defaultValues?: z.infer<typeof FormSchema> | null;
+  defaultValues?: Partial<z.infer<typeof FormSchema>>;
 }
 
 export const ItemForm: React.FC<ItemFormProps> = ({
   onSubmit,
-  defaultValues,
+  defaultValues = {},
 }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
