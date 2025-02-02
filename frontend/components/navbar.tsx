@@ -3,7 +3,7 @@
 import { useAuth } from '@/context/auth-context';
 import { Button } from './ui/button';
 import Link from 'next/link';
-import { LogIn, LogOut } from 'lucide-react';
+import { Home, LogIn, LogOut } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 export const Navbar = () => {
@@ -12,7 +12,12 @@ export const Navbar = () => {
   if (token)
     return (
       <div className="w-full flex justify-between px-10 py-5">
-        <p>Olá, {user?.username}</p>
+        <div className="flex items-center gap-4">
+          <Link href="/">
+            <Home />
+          </Link>
+          <p>Olá, {user?.username}</p>
+        </div>
         {token ? (
           <div className="flex gap-5">
             <Button onClick={() => logout()}>

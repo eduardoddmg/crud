@@ -3,25 +3,12 @@ const ItemDAO = require('./item.dao.');
 
 const create = async (req, res) => {
   req.body.user = req.user;
-
   const data = await ItemDAO.create(req.body);
-
-  return res.status(201).json(data);
-};
-
-const createBatch = async (req, res) => {
-  const { items } = req.body;
-  items.forEach((element) => {
-    element.user = req.user;
-  });
-  const data = await ItemDAO.createBatch(items);
-
   return res.status(201).json(data);
 };
 
 const getAll = async (req, res) => {
   const { q } = req.query;
-
   const filters = (item) =>
     item.user.id === req.user.id &&
     (item.name.includes(q) || item.description.includes(q));
@@ -63,4 +50,4 @@ const remove = async (req, res) => {
   return res.status(200).json(data);
 };
 
-module.exports = { create, createBatch, getAll, getOne, update, remove };
+module.exports = { create, getAll, getOne, update, remove };

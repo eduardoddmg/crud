@@ -16,16 +16,16 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 
 const FormSchema = z.object({
-  name: z.string().min(1, 'O nome é obrigatório'),
-  email: z.string().email('E-mail inválido'),
-  phone: z.string().min(8, 'Número de telefone inválido'),
-  address: z.string().min(5, 'Endereço obrigatório'),
-  city: z.string().min(1, 'Cidade obrigatória'),
-  state: z.string().min(1, 'Estado obrigatório'),
-  country: z.string().min(1, 'País obrigatório'),
-  zipCode: z.string().min(5, 'CEP obrigatório'),
-  birthDate: z.string().min(1, 'Data de nascimento obrigatória'),
-  occupation: z.string().min(1, 'Ocupação obrigatória'),
+  name: z.string().min(1, 'O nome é obrigatório').optional(),
+  email: z.string().email('E-mail inválido').optional(),
+  phone: z.string().min(8, 'Número de telefone inválido').optional(),
+  address: z.string().min(5, 'Endereço obrigatório').optional(),
+  city: z.string().min(1, 'Cidade obrigatória').optional(),
+  state: z.string().min(1, 'Estado obrigatório').optional(),
+  country: z.string().min(1, 'País obrigatório').optional(),
+  zipCode: z.string().min(5, 'CEP obrigatório').optional(),
+  birthDate: z.string().min(1, 'Data de nascimento obrigatória').optional(),
+  occupation: z.string().min(1, 'Ocupação obrigatória').optional(),
 });
 
 interface ProfileFormProps {

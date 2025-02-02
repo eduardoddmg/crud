@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 
-import { useAuth } from '@/context/auth-context';
 import { useParams } from 'next/navigation';
 import { Loading } from '@/components/loading';
 import { ItemForm } from '@/modules/item/form';
@@ -15,8 +14,6 @@ const Page = () => {
   const [data, setData] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
-  const { token } = useAuth();
-
   const fetchData = async () => {
     setLoading(true);
     const response = await getItemById(id);
@@ -25,8 +22,8 @@ const Page = () => {
   };
 
   React.useEffect(() => {
-    if (token) fetchData();
-  }, [token]);
+    fetchData();
+  }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
