@@ -37,16 +37,18 @@ export const Grid: React.FC<GridProps> = ({ route, columns }) => {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center space-x-3">
-        <Input
-          placeholder="Faça uma busca"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          loading={debounceLoading}
-          disabled={data === null || data?.length === 0}
-        />
-        <Button onClick={() => setSearch('')}>Limpar</Button>
-      </div>
+      {data && data.length > 0 && (
+        <div className="flex items-center space-x-3">
+          <Input
+            placeholder="Faça uma busca"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            loading={debounceLoading}
+            disabled={data === null || data?.length === 0}
+          />
+          <Button onClick={() => setSearch('')}>Limpar</Button>
+        </div>
+      )}
       <DataTable
         columns={enhancedColumns}
         data={data || []}
