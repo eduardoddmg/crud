@@ -58,8 +58,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Logout
   const logout = () => {
-    setToken(null);
     router.push('/login');
+    setToken(null);
   };
 
   // Get Profile
@@ -92,12 +92,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider value={{ token, loading, login, logout, user }}>
-      {loading ? 
-      <div className='flex justify-center'>
-
-      <Loading />
-      </div>
-       : children}
+      {loading ? (
+        <div className="flex justify-center">
+          <Loading />
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };
