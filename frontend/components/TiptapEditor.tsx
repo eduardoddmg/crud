@@ -198,7 +198,7 @@ interface TiptapEditorProps {
   setContent: (content: string) => void;
 }
 
-export const TiptapEditor: React.FC<TiptapEditorProps> = ({
+const TiptapEditor: React.FC<TiptapEditorProps> = ({
   content,
   setContent,
 }) => {
@@ -225,3 +225,5 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({
     </main>
   );
 };
+
+export default TiptapEditor;

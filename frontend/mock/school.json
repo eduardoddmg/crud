@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "name": "Escola Estadual Monteiro Lobato",
+        "address": "Rua das Palmeiras, 123",
+        "city": "São Paulo",
+        "state": "SP",
+        "phone": "(11) 98765-4321",
+        "education_level": "Ensino Fundamental e Médio"
+    },
+    {
+        "id": 2,
+        "name": "Colégio Novo Horizonte",
+        "address": "Avenida Brasil, 456",
+        "city": "Rio de Janeiro",
+        "state": "RJ",
+        "phone": "(21) 99876-5432",
+        "education_level": "Ensino Fundamental"
+    },
+    {
+        "id": 3,
+        "name": "Instituto Educacional Saber",
+        "address": "Rua das Flores, 789",
+        "city": "Belo Horizonte",
+        "state": "MG",
+        "phone": "(31) 91234-5678",
+        "education_level": "Ensino Médio"
+    },
+    {
+        "id": 4,
+        "name": "Colégio Futuro Brilhante",
+        "address": "Praça Central, 101",
+        "city": "Curitiba",
+        "state": "PR",
+        "phone": "(41) 97654-3210",
+        "education_level": "Educação Infantil e Ensino Fundamental"
+    },
+    {
+        "id": 5,
+        "name": "Escola Municipal Paulo Freire",
+        "address": "Rua Esperança, 222",
+        "city": "Fortaleza",
+        "state": "CE",
+        "phone": "(85) 92345-6789",
+        "education_level": "Ensino Fundamental"
+    },
+    {
+        "id": 6,
+        "name": "Colégio Integração",
+        "address": "Avenida Paulista, 333",
+        "city": "São Paulo",
+        "state": "SP",
+        "phone": "(11) 90012-3456",
+        "education_level": "Ensino Médio"
+    },
+    {
+        "id": 7,
+        "name": "Escola Vida e Conhecimento",
+        "address": "Rua do Aprendizado, 404",
+        "city": "Porto Alegre",
+        "state": "RS",
+        "phone": "(51) 96543-2109",
+        "education_level": "Ensino Fundamental e Médio"
+    },
+    {
+        "id": 8,
+        "name": "Instituto de Educação Moderna",
+        "address": "Alameda dos Estudantes, 555",
+        "city": "Salvador",
+        "state": "BA",
+        "phone": "(71) 98712-3456",
+        "education_level": "Educação Infantil e Ensino Fundamental"
+    },
+    {
+        "id": 9,
+        "name": "Escola Cidadã do Futuro",
+        "address": "Rua da Cultura, 666",
+        "city": "Recife",
+        "state": "PE",
+        "phone": "(81) 93214-5678",
+        "education_level": "Ensino Médio"
+    },
+    {
+        "id": 10,
+        "name": "Colégio Elite do Saber",
+        "address": "Avenida dos Professores, 777",
+        "city": "Brasília",
+        "state": "DF",
+        "phone": "(61) 95432-1098",
+        "education_level": "Ensino Fundamental e Médio"
+    }
+]

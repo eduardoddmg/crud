@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,8 +10,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -19,34 +19,33 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import Link from 'next/link';
-import { useAuth } from '@/context/auth-context';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import { toast } from "@/hooks/use-toast";
 
 const FormSchema = z.object({
-  email: z.string().email({ message: 'Por favor, digite um e-mail válido.' }),
+  email: z.string().email({ message: "Por favor, digite um e-mail válido." }),
   password: z.string().min(8, {
-    message: 'A senha deve ter no mínimo 8 caracteres.',
+    message: "A senha deve ter no mínimo 8 caracteres.",
   }),
 });
 
 export default function Login() {
-  const { login } = useAuth();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: 'eduardomelo@gmail.com',
-      password: '12345678',
+      email: "eduardomelo@gmail.com",
+      password: "12345678",
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const { email, password } = data;
-    await login(email, password); // Alterado para enviar o e-mail no lugar do username
+    console.log(data);
   }
 
   return (

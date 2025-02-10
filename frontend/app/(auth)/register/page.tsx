@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,8 +10,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -19,22 +19,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import Link from 'next/link';
-import { api } from '@/utils/request';
-import { toast } from '@/hooks/use-toast';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import Link from "next/link";
 
 const FormSchema = z.object({
-  username: z.string().min(4, {
-    message: 'Por favor, digite um nome de usuário válido.',
-  }),
-  email: z.string().email({ message: 'Por favor, digite um e-mail válido.' }),
+  email: z.string().email({ message: "Por favor, digite um e-mail válido." }),
   password: z.string().min(8, {
-    message: 'A senha deve ter no mínimo 8 caracteres.',
+    message: "A senha deve ter no mínimo 8 caracteres.",
   }),
 });
 
@@ -42,32 +37,14 @@ export default function Register() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: '',
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const { username, email, password } = data;
-    api
-      .post('/auth/register', { username, email, password })
-      .then((response) => {
-        const message = response.data.message;
-        toast({
-          title: 'Sucesso!',
-          description: message,
-          className: 'text-white bg-green-500',
-        });
-      })
-      .catch((error) => {
-        const message = error.response?.data?.message || 'Erro inesperado.';
-        toast({
-          title: 'Aconteceu algo de errado',
-          description: message,
-          className: 'text-white bg-red-500',
-        });
-      });
+    console.log(data);
   }
 
   return (
@@ -81,19 +58,6 @@ export default function Register() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="email"
