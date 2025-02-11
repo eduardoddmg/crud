@@ -19,6 +19,7 @@ interface Column<T> {
   header: string;
   accessor?: keyof T;
   row?: ((data: T) => React.ReactNode) | string;
+  width?: string; // Adicionando propriedade para largura
 }
 
 interface DataTableProps<T> {
@@ -81,7 +82,9 @@ export const DataTable = <T,>({
       <TableHeader>
         <TableRow>
           {columns?.map((column, index) => (
-            <TableHead key={index}>{column.header}</TableHead>
+            <TableHead key={index} style={{ width: column.width || 'auto' }}>
+              {column.header}
+            </TableHead>
           ))}
         </TableRow>
       </TableHeader>
@@ -89,7 +92,10 @@ export const DataTable = <T,>({
         {data?.map((rowData, rowIndex) => (
           <TableRow key={rowIndex}>
             {columns?.map((column, colIndex) => (
-              <TableCell key={colIndex}>
+              <TableCell
+                key={colIndex}
+                style={{ width: column.width || 'auto' }}
+              >
                 {typeof column.row === 'function'
                   ? column.row(rowData)
                   : typeof column.row === 'string'

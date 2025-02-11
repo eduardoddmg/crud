@@ -10,15 +10,10 @@ import {
 } from '@/components/ui/dialog';
 import { SubjectForm } from './form';
 import { useSubjectStore } from './contex';
+import subjects from '@/mock/subjects.json';
 
-interface SubjectDrawerProps {
-  defaultValues?: { id_subject?: string; description?: string };
-}
-
-export const SubjectDrawer: React.FC<SubjectDrawerProps> = ({
-  defaultValues,
-}) => {
-  const { open, setOpen, setId } = useSubjectStore();
+export const SubjectDrawer: React.FC = () => {
+  const { open, setOpen, id, setId } = useSubjectStore();
 
   const handleSubmit = async (data: any) => {
     console.log(data);
@@ -31,6 +26,8 @@ export const SubjectDrawer: React.FC<SubjectDrawerProps> = ({
       setId(''); // Limpa o ID ao fechar o modal
     }
   };
+
+  const defaultValues = subjects.find((subject) => subject.id_subject == id);
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

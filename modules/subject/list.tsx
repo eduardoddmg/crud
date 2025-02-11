@@ -14,6 +14,7 @@ export const SubjectList = () => {
     {
       header: 'Ver',
       accessor: 'id_subject',
+      width: '5%',
       row: (row: any) => (
         <Link href={`/subject/${row.id_subject}`}>
           <Button variant="ghost" size="icon">
@@ -27,26 +28,24 @@ export const SubjectList = () => {
       accessor: 'description',
     },
     {
-      header: 'EDITAR',
+      header: '',
+      width: '5%',
       row: (row: any) => (
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => {
-            setOpen(true);
-            setId(row.id_subject);
-          }}
-        >
-          <Pen />
-        </Button>
-      ),
-    },
-    {
-      header: 'EXCLUIR',
-      row: (row: any) => (
-        <Button variant="ghost" size="icon">
-          <Trash />
-        </Button>
+        <div className="flex justify-end">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => {
+              setOpen(true);
+              setId(row.id_subject);
+            }}
+          >
+            <Pen />
+          </Button>
+          <Button variant="ghost" size="icon">
+            <Trash />
+          </Button>
+        </div>
       ),
     },
   ];
