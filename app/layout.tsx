@@ -30,11 +30,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center justify-center`}
       >
         <Toaster />
+<<<<<<< HEAD:app/layout.tsx
         {/* <AuthProvider> */}
         <section className="w-full max-w-7xl p-4 flex flex-col justify-between">
           {children}
         </section>
         {/* </AuthProvider> */}
+=======
+        <section>{children}</section>
+>>>>>>> cb3ec66f2d707bf2024788f207a975f90fb11cbf:frontend/app/layout.tsx
       </body>
     </html>
   );
