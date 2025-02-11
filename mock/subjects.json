@@ -1,0 +1,26 @@
+[
+  {
+    "description": "Matemática",
+    "id_subject": 1
+  },
+  {
+    "description": "Português",
+    "id_subject": 2
+  },
+  {
+    "description": "História",
+    "id_subject": 3
+  },
+  {
+    "description": "Geografia",
+    "id_subject": 4
+  },
+  {
+    "description": "Biologia",
+    "id_subject": 5
+  },
+  {
+    "description": "Física",
+    "id_subject": 6
+  }
+]
