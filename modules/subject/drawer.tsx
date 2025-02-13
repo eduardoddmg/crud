@@ -9,14 +9,16 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { SubjectForm } from './form';
-import { useSubjectStore } from './contex';
+import { useSubjectStore } from './context';
 import subjects from '@/mock/subjects.json';
+import useLocalStorage from '@/hooks/use-local-storage';
 
 export const SubjectDrawer: React.FC = () => {
   const { open, setOpen, id, setId } = useSubjectStore();
+  const { add } = useLocalStorage("subjects");
 
   const handleSubmit = async (data: any) => {
-    console.log(data);
+    add(data);
     setOpen(false);
   };
 
