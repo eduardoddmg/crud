@@ -14,18 +14,6 @@ export const SubjectList = () => {
 
   const columns = [
     {
-      header: "Ver",
-      accessor: "id",
-      width: "5%",
-      row: (row: any) => (
-        <Link href={`/subject/${row.id}`}>
-          <Button variant="ghost" size="icon">
-            <File />
-          </Button>
-        </Link>
-      ),
-    },
-    {
       header: "DESCRIÇÃO",
       accessor: "description",
     },
@@ -35,13 +23,10 @@ export const SubjectList = () => {
       row: (row: any) => (
         <div className="flex justify-end">
           <Link href={`/subject/editar/${row.id}`}>
-          <Button
-            variant="ghost"
-            size="icon"
-            >
-            <Pen />
-          </Button>
-            </Link>
+            <Button variant="ghost" size="icon">
+              <Pen />
+            </Button>
+          </Link>
           <Button
             variant="ghost"
             size="icon"
@@ -65,9 +50,9 @@ export const SubjectList = () => {
             <RefreshCcw /> Atualizar
           </Button>
           <Link href="/subject/adicionar">
-          <Button size="sm" variant="default">
-            Adicionar Disciplina
-          </Button>
+            <Button size="sm" variant="default">
+              Adicionar Disciplina
+            </Button>
           </Link>
         </div>
       </div>
