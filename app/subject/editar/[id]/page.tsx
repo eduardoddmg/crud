@@ -1,7 +1,7 @@
 "use client";
 
 import { BreadcrumbComp } from "@/components/breadcrumb";
-import useLocalStorage from "@/hooks/use-local-storage";
+import useLocalStorage, { ItemType } from "@/hooks/use-local-storage";
 import { toast } from "@/hooks/use-toast";
 import { SubjectForm } from "@/modules/subject/form";
 import { useParams, useRouter } from "next/navigation";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const Page = () => {
   const { update, getOne } = useLocalStorage("subjects");
 
-  const [subject, setSubject] = useState(null);
+  const [subject, setSubject] = useState<ItemType | null>(null);
 
   const { id } = useParams();
 
@@ -38,10 +38,10 @@ const Page = () => {
     <div className="space-y-5">
       <BreadcrumbComp items={[
         {name: "Disciplina", href: "/subject"},
-        {name: 'Adicionar'}
+        {name: 'Editar'}
       ]} />
-      <h2 className="text-lg">Adicionar</h2>
-      {subject && <SubjectForm onSubmit={onSubmit} defaultValues={subject} />}
+      <h2 className="text-lg">Editar</h2>
+      {subject && <SubjectForm onSubmit={onSubmit} defaultValues={{ description: subject.description || ""}} />}
     </div>
   );
 };

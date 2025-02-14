@@ -51,7 +51,7 @@ const useLocalStorage = (key: string, initialValue: ItemType[] = []) => {
     }
   };
 
-  const getOne = (id: string | number): ItemType | null => {
+  const getOne = (id: string | string[] | number): ItemType | null => {
     const items = getAll();
     return items.find((item) => item.id === id) || null;
   };
