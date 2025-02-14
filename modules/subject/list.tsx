@@ -2,12 +2,9 @@ import { Button } from "@/components/ui/button";
 import { File, Pen, RefreshCcw, Trash } from "lucide-react";
 import { DataTable } from "@/components/data-table";
 import Link from "next/link";
-import { SubjectDrawer } from "./drawer";
-import { useSubjectStore } from "./context";
 import useLocalStorage from "@/hooks/use-local-storage";
 
 export const SubjectList = () => {
-  const { setOpen, setId } = useSubjectStore();
   const {
     data: subjects,
     loading,
@@ -75,10 +72,7 @@ export const SubjectList = () => {
         </div>
       </div>
 
-      {!loading && (
-        <DataTable columns={columns} data={subjects} loading={false} />
-      )}
-      <SubjectDrawer />
+      <DataTable columns={columns} data={subjects} loading={loading} />
     </div>
   );
 };
