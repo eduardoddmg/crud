@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { File, Pen, RefreshCcw, Trash } from "lucide-react";
 import { DataTable } from "@/components/data-table";
@@ -7,7 +5,6 @@ import Link from "next/link";
 import { SubjectDrawer } from "./drawer";
 import { useSubjectStore } from "./context";
 import useLocalStorage from "@/hooks/use-local-storage";
-import { Suspense } from "react";
 
 export const SubjectList = () => {
   const { setOpen, setId } = useSubjectStore();
@@ -40,22 +37,19 @@ export const SubjectList = () => {
       width: "5%",
       row: (row: any) => (
         <div className="flex justify-end">
+          <Link href={`/subject/editar/${row.id}`}>
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => {
-              setOpen(true);
-              setId(row.id);
-            }}
-          >
+            >
             <Pen />
           </Button>
+            </Link>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => {
               remove(row.id);
-              fetchData();
             }}
           >
             <Trash />
@@ -73,9 +67,11 @@ export const SubjectList = () => {
           <Button size="sm" onClick={fetchData}>
             <RefreshCcw /> Atualizar
           </Button>
-          <Button size="sm" variant="default" onClick={() => setOpen(true)}>
+          <Link href="/subject/adicionar">
+          <Button size="sm" variant="default">
             Adicionar Disciplina
           </Button>
+          </Link>
         </div>
       </div>
 

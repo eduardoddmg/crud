@@ -10,12 +10,18 @@ import {
 } from '@/components/ui/dialog';
 import { SubjectForm } from './form';
 import { useSubjectStore } from './context';
-import subjects from '@/mock/subjects.json';
-import useLocalStorage from '@/hooks/use-local-storage';
+import useLocalStorage, { ItemType } from '@/hooks/use-local-storage';
 
 export const SubjectDrawer: React.FC = () => {
   const { open, setOpen, id, setId } = useSubjectStore();
-  const { add } = useLocalStorage("subjects");
+  const { add, getOne } = useLocalStorage("subjects");
+
+  const [subject, setSubject] = React.useState<ItemType | null>(null);
+
+  const fetchData = () => {
+    const response = getOne(id);
+    setSubject(response);
+  }
 
   const handleSubmit = async (data: any) => {
     add(data);
@@ -29,14 +35,12 @@ export const SubjectDrawer: React.FC = () => {
     }
   };
 
-  const defaultValues = subjects.find((subject) => subject.id_subject == id);
-
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {defaultValues?.id_subject
+            {subject?.id
               ? 'Editar Disciplina'
               : 'Adicionar Disciplina'}
           </DialogTitle>
@@ -44,7 +48,7 @@ export const SubjectDrawer: React.FC = () => {
             Preencha o formulário e clique em salvar.
           </DialogDescription>
         </DialogHeader>
-        <SubjectForm onSubmit={handleSubmit} defaultValues={defaultValues} />
+        <SubjectForm onSubmit={handleSubmit} defaultValues={subject} />
       </DialogContent>
     </Dialog>
   );

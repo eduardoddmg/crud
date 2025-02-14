@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "./use-toast";
 
-type ItemType = {
+export type ItemType = {
   id: string;
   [key: string]: any;
 };
@@ -50,7 +51,7 @@ const useLocalStorage = (key: string, initialValue: ItemType[] = []) => {
     }
   };
 
-  const getOne = (id: string): ItemType | null => {
+  const getOne = (id: string | number): ItemType | null => {
     const items = getAll();
     return items.find((item) => item.id === id) || null;
   };
@@ -62,9 +63,10 @@ const useLocalStorage = (key: string, initialValue: ItemType[] = []) => {
       window.localStorage.setItem(key, JSON.stringify(updatedItems));
       return updatedItems;
     });
+    fetchData();
   };
 
-  const update = (id: string, newItem: Partial<ItemType>) => {
+  const update = (id: string | string[], newItem: Partial<ItemType>) => {
     setStoredValue((prevItems) => {
       const updatedItems = prevItems.map((item) =>
         item.id === id ? { ...item, ...newItem } : item
@@ -72,6 +74,7 @@ const useLocalStorage = (key: string, initialValue: ItemType[] = []) => {
       window.localStorage.setItem(key, JSON.stringify(updatedItems));
       return updatedItems;
     });
+    fetchData();
   };
 
   const remove = (id: string) => {
@@ -80,6 +83,15 @@ const useLocalStorage = (key: string, initialValue: ItemType[] = []) => {
       window.localStorage.setItem(key, JSON.stringify(updatedItems));
       return updatedItems;
     });
+
+    toast({
+      title: 'Sucesso!',
+      description: "Item removido com sucesso",
+    })
+
+    console.log(`Item removido: ${id}`);
+
+    fetchData();
   };
 
   return { storedValue, data, fetchData, loading, add, update, remove, getAll, getOne };
